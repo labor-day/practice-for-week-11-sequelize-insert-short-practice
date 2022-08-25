@@ -25,7 +25,24 @@ app.get('/puppies', async (req, res, next) => {
 // Respond to the request by sending a success message
 app.post('/puppies', async (req, res, next) => {
     // Your code here
-})
+    let newPuppy;
+    try {
+        newPuppy = await Puppy.create({
+            name: req.body.name,
+            age_yrs: req.body.age_yrs,
+            weight_lbs: req.body.weight_lbs,
+            breed: req.body.breed,
+            microchipped: req.body.microchipped
+        });
+    } catch (err) {
+        console.error(err)
+    }
+
+    res.json({
+        message: "Successfully saved puppy",
+        data: newPuppy
+    });
+});
 
 
 // Root route - DO NOT MODIFY
